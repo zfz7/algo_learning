@@ -11,6 +11,6 @@ public class TwoSumTest {
         int[] output = TwoSum.twoSum(input,9);
 
         assertEquals(output[0],0);
-        assertEquals(output[1],0);
+        assertEquals(output[1],1);
     }
 }
