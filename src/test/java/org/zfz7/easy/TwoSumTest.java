@@ -1,4 +1,4 @@
-package easy;
+package org.zfz7.easy;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
