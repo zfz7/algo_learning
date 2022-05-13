@@ -1,7 +1,6 @@
 package org.zfz7.easy;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 public class ValidAnagram {
   //https://leetcode.com/problems/valid-anagram/

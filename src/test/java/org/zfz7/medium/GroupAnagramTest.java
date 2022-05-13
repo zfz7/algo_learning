@@ -1,12 +1,10 @@
 package org.zfz7.medium;
 
 import org.junit.Test;
-import org.zfz7.easy.ValidAnagram;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class GroupAnagramTest {
