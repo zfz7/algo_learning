@@ -1,7 +1,10 @@
 package org.zfz7.leetcode;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class EasyTest {
 
@@ -48,5 +51,44 @@ public class EasyTest {
         assertEquals(Easy.isValid("()[]{}"), true);
         assertEquals(Easy.isValid("[}"), false);
         assertEquals(Easy.isValid("["), false);
+    }
+
+    @Test
+    public void isBinarySearch(){
+        assertEquals(Easy.search(new int[]{-1,0,3,5,9,12},9), 4);
+        assertEquals(Easy.search(new int[]{-1,0,3,5,9,12},4), -1);
+        assertEquals(Easy.search(new int[]{-1,0,3,5,9,12},2), -1);
+        assertEquals(Easy.search(new int[]{1},1), 0);
+        assertEquals(Easy.search(new int[]{1},2), -1);
+    }
+    @Test
+    public void reverseList(){
+        ListNode list1C = new ListNode(3);
+        ListNode list1B = new ListNode(2, list1C);
+        ListNode list1A = new ListNode(1, list1B);
+
+        ListNode result = Easy.reverseList(list1A);
+        assertEquals(result.val, 3);
+        assertEquals(result.next.val, 2);
+        assertEquals(result.next.next.val, 1);
+        assertNull(result.next.next.next);
+    }
+    @Test
+    public void mergeTwoList(){
+        ListNode list1C = new ListNode(5);
+        ListNode list1B = new ListNode(3, list1C);
+        ListNode list1A = new ListNode(2, list1B);
+
+        ListNode list2C = new ListNode(4);
+        ListNode list2B = new ListNode(1, list2C);
+        ListNode list2A = new ListNode(1, list2B);
+
+        ListNode result = Easy.mergeTwoLists(list1A, list2A);
+        assertEquals(result.val, 1);
+        assertEquals(result.next.val, 1);
+        assertEquals(result.next.next.val, 2);
+        assertEquals(result.next.next.next.val, 3);
+        assertEquals(result.next.next.next.next.val, 4);
+        assertEquals(result.next.next.next.next.next.val, 5);
     }
 }

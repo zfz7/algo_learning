@@ -1,9 +1,6 @@
 package org.zfz7.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Medium {
   //https://leetcode.com/problems/group-anagrams/
@@ -23,7 +20,7 @@ public class Medium {
       }
 
     }
-    return  new ArrayList<List<String>>(mapOfAnagrams.values());
+    return new ArrayList<List<String>>(mapOfAnagrams.values());
   }
 
   //https://leetcode.com/problems/longest-substring-without-repeating-characters/
@@ -47,18 +44,91 @@ public class Medium {
     int end = numbers.length - 1;
     while (start < end) {
       if (numbers[start] + numbers[end] == target) {
-        return new int[]{start+1, end+1};
+        return new int[]{start + 1, end + 1};
       }
-      if (numbers[start] + numbers[end]  > target) {
+      if (numbers[start] + numbers[end] > target) {
         end--;
         continue;
       }
-      if (numbers[start] + numbers[end]  < target) {
+      if (numbers[start] + numbers[end] < target) {
         start++;
         continue;
       }
     }
     //The tests are generated such that there is exactly one solution.
     return null;
+  }
+
+  //https://leetcode.com/problems/evaluate-reverse-polish-notation/
+  public static int evalRPN(String[] tokens) {
+    Stack<Integer> stack = new Stack<>();
+    for (String token : tokens) {
+      if (Objects.equals(token, "+")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b + a);
+        continue;
+      }
+      if (Objects.equals(token, "-")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b - a);
+        continue;
+      }
+      if (Objects.equals(token, "*")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b * a);
+        continue;
+      }
+      if (Objects.equals(token, "/")) {
+        int a = stack.pop();
+        int b = stack.pop();
+        stack.push(b / a);
+        continue;
+      }
+      stack.push(Integer.parseInt(token));
+    }
+    return stack.peek();
+  }
+
+  //  https://leetcode.com/problems/search-a-2d-matrix/submissions/
+  public static boolean searchMatrix(int[][] matrix, int target) {
+    int left = 0;
+    int right = (matrix.length) * (matrix[0].length) - 1;
+    int col;
+    int row;
+    while (left <= right) {
+      int index = ((right - left) / 2) + left;
+      row = index / matrix[0].length;
+      col = index - (row * matrix[0].length);
+      if (matrix[row][col] == target) {
+        return true;
+      }
+      if (target > matrix[row][col]) {
+        left = row * matrix[0].length + col + 1;
+      }
+      if (target < matrix[row][col]) {
+        right = row * matrix[0].length + col - 1;
+      }
+    }
+    return false;
+  }
+
+  public static void reorderList(ListNode head) {
+    HashMap<Integer, ListNode> map = new HashMap<>();
+    ListNode current = head;
+    int index = 0;
+    while (current != null) {
+      map.put(index, current);
+      index++;
+      current = current.next;
+    }
+    --index;
+    for (int i = 0; i < index/2; i++) {
+      map.get(i).next = map.get(index - i);
+      map.get(index - i).next = map.get(i + 1);
+    }
+    map.get((int)Math.ceil(((double)index)/2)).next = null;
   }
 }

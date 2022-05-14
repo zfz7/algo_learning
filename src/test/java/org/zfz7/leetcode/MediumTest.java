@@ -36,4 +36,51 @@ public class MediumTest {
     assertArrayEquals(Medium.twoSum(new int[]{2,3,4}, 6),new int[]{1,3});
     assertArrayEquals(Medium.twoSum(new int[]{-1,0}, -1),new int[]{1,2});
   }
+
+  @Test
+  public void evalRPN() {
+    assertEquals(Medium.evalRPN(new String[]{"2","1","+","3","*"}),9);
+    assertEquals(Medium.evalRPN(new String[]{"4","13","5","/","+"}),6);
+    assertEquals(Medium.evalRPN(new String[]{"10","6","9","3","+","-11","*","/","*","17","+","5","+"}),22);
+  }
+  @Test
+  public void isMatrixBinarySearch(){
+    assertEquals(Medium.searchMatrix(new int[][]{{1,3,5,7},{10,11,16,20},{23,30,34,60}},3), true);
+    assertEquals(Medium.searchMatrix(new int[][]{{1,3,5,7},{10,11,16,20},{23,30,34,60}},13), false);
+    assertEquals(Medium.searchMatrix(new int[][]{{1}},1), true);
+    assertEquals(Medium.searchMatrix(new int[][]{{1}},2), false);
+    assertEquals(Medium.searchMatrix(new int[][]{{1,3}},3), true);
+  }
+
+  @Test
+  public void reorderList(){
+    ListNode list1D = new ListNode(4);
+    ListNode list1C = new ListNode(3, list1D);
+    ListNode list1B = new ListNode(2, list1C);
+    ListNode list1A = new ListNode(1, list1B);
+
+    Medium.reorderList(list1A);
+    assertEquals(list1A.val, 1);
+    assertEquals(list1A.next.val, 4);
+    assertEquals(list1A.next.next.val, 2);
+    assertEquals(list1A.next.next.next.val, 3);
+    assertEquals(list1A.next.next.next.next, null);
+  }
+  @Test
+  public void reorderList1(){
+    ListNode list1E = new ListNode(5);
+    ListNode list1D = new ListNode(4, list1E);
+    ListNode list1C = new ListNode(3, list1D);
+    ListNode list1B = new ListNode(2, list1C);
+    ListNode list1A = new ListNode(1, list1B);
+
+    Medium.reorderList(list1A);
+    assertEquals(list1A.val, 1);
+    assertEquals(list1A.next.val, 5);
+    assertEquals(list1A.next.next.val, 2);
+    assertEquals(list1A.next.next.next.val, 4);
+    assertEquals(list1A.next.next.next.next.val, 3);
+    assertEquals(list1A.next.next.next.next.next, null);
+
+  }
 }
