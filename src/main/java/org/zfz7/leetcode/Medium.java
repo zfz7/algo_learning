@@ -125,10 +125,26 @@ public class Medium {
       current = current.next;
     }
     --index;
-    for (int i = 0; i < index/2; i++) {
+    for (int i = 0; i < index / 2; i++) {
       map.get(i).next = map.get(index - i);
       map.get(index - i).next = map.get(i + 1);
     }
-    map.get((int)Math.ceil(((double)index)/2)).next = null;
+    map.get((int) Math.ceil(((double) index) / 2)).next = null;
+  }
+  static List<List<Integer>> levelOrder;
+  public static List<List<Integer>> levelOrder(TreeNode root) {
+    levelOrder = new ArrayList<>();
+    createLevelOrder(root,0);
+    return levelOrder;
+  }
+
+  private static void createLevelOrder(TreeNode root, int index) {
+    if(root == null) return;
+    if(levelOrder.size() <= index){
+      levelOrder.add(index,new ArrayList<>());
+    }
+    levelOrder.get(index).add(root.val);
+    createLevelOrder(root.left,index +1);
+    createLevelOrder(root.right,index +1);
   }
 }

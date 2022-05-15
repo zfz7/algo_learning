@@ -124,13 +124,14 @@ public class Easy {
     }
     return -1;
   }
-//  https://leetcode.com/problems/reverse-linked-list/
+
+  //  https://leetcode.com/problems/reverse-linked-list/
   public static ListNode reverseList(ListNode head) {
     ListNode prev = null;
     ListNode current = head;
     ListNode temp = null;
 
-    while(current != null){
+    while (current != null) {
       temp = current;
       current = current.next;
       temp.next = prev;
@@ -138,20 +139,21 @@ public class Easy {
     }
     return prev;
   }
-//  https://leetcode.com/problems/merge-two-sorted-lists/
+
+  //  https://leetcode.com/problems/merge-two-sorted-lists/
   public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
     ListNode head = new ListNode(0, null);
     ListNode current = head;
-    while (list1 !=null || list2 != null){
-      if(list1 == null){
+    while (list1 != null || list2 != null) {
+      if (list1 == null) {
         current.next = list2;
         break;
       }
-      if(list2 == null){
+      if (list2 == null) {
         current.next = list1;
         break;
       }
-      if(list1.val < list2.val){
+      if (list1.val < list2.val) {
         current.next = list1;
         list1 = list1.next;
       } else {
@@ -161,5 +163,83 @@ public class Easy {
       current = current.next;
     }
     return head.next;
+  }
+
+  //  https://leetcode.com/problems/invert-binary-tree/
+  public static TreeNode invertTree(TreeNode root) {
+    if (root == null) return null;
+    TreeNode left = root.right;
+    TreeNode right = root.left;
+    root.left = invertTree(left);
+    root.right = invertTree(right);
+    return root;
+  }
+
+  //  https://leetcode.com/problems/maximum-depth-of-binary-tree/
+  public static int maxDepth(TreeNode root) {
+    if (root == null) return 0;
+    int left = 1 + maxDepth(root.left);
+    int right = 1 + maxDepth(root.right);
+    return Math.max(left, right);
+  }
+
+  // https://leetcode.com/problems/diameter-of-binary-tree/
+  //The diameter of a binary tree is the length of the longest path between any two nodes in a tree.
+  //This path may or may not pass through the root.
+  private static int treeDiameter;
+
+  public static int diameterOfBinaryTree(TreeNode root) {
+    treeDiameter = 0;
+    maxHeight(root);
+    return treeDiameter;
+  }
+
+  private static int maxHeight(TreeNode root) {
+    if (root == null) return 0;
+    int left = maxHeight(root.left);
+    int right = maxHeight(root.right);
+    treeDiameter = Math.max(left + right, treeDiameter);
+    return Math.max(left, right) + 1;
+  }
+
+  //https://leetcode.com/problems/balanced-binary-tree/
+  //a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+  public static boolean isBalanced(TreeNode root) {
+    if (root == null) return true;
+    boolean left = isBalanced(root.left);
+    boolean right = isBalanced(root.right);
+    if (left && right) {//Balanced so far
+      return Math.abs(maxHeight(root.left) - maxHeight(root.right)) <= 1;
+    }
+    return false;
+  }
+
+  //https://leetcode.com/problems/same-tree/
+  public static boolean isSameTree(TreeNode p, TreeNode q) {
+    if (p == null && q == null) return true;
+    if (p != null && q == null) return false;
+    if (p == null && q != null) return false;
+    boolean val = p.val == q.val;
+    if (!val) return false;
+    boolean left = isSameTree(p.left, q.left);
+    boolean right = isSameTree(p.right, q.right);
+    return left && right;
+  }
+
+  //  https://leetcode.com/problems/subtree-of-another-tree/
+  public static boolean isSubtree(TreeNode root, TreeNode subRoot) {
+    if (root == null) return false;
+    boolean currentIsSame = isSameTree(root, subRoot);
+    boolean left = isSubtree(root.left, subRoot);
+    boolean right = isSubtree(root.right, subRoot);
+    return left || right || currentIsSame;
+  }
+
+  //https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+  public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (p.val <= root.val && q.val >= root.val) return root;
+    if (p.val > root.val && q.val > root.val) return lowestCommonAncestor(root.right, p, q);
+    if (p.val < root.val && q.val < root.val) return lowestCommonAncestor(root.left, p, q);
+    return root;
   }
 }

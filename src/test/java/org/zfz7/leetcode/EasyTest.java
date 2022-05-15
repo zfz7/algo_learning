@@ -91,4 +91,165 @@ public class EasyTest {
         assertEquals(result.next.next.next.next.val, 4);
         assertEquals(result.next.next.next.next.next.val, 5);
     }
+
+    @Test
+    public void invertTree(){
+        /*
+                 1
+                / \
+               /   \
+              2     \
+             / \     3
+            4   5   / \
+                   9   \
+                        8
+         */
+        TreeNode A = new TreeNode(9);
+        TreeNode B = new TreeNode(8);
+        TreeNode C = new TreeNode(3, A, B);
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F, C);
+        root = Easy.invertTree(root);
+        assertEquals(root.left.val, 3);
+        assertEquals(root.left.left.val, 8);
+        assertEquals(root.left.right.val, 9);
+
+        assertEquals(root.right.val, 2);
+        assertEquals(root.right.right.val, 4);
+        assertEquals(root.right.left.val, 5);
+
+    }
+
+    @Test
+    public void maxDepth(){
+        /*
+                1
+               / \
+              2   3
+             / \
+            4   5
+         */
+        TreeNode C = new TreeNode(3);
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F, C);
+        assertEquals(Easy.maxDepth(root), 3);
+    }
+
+    @Test
+    public void diameterOfBinaryTree(){
+        /*
+                 1
+                / \
+               /   \
+              2     \
+             / \     3
+            4   5
+         */
+        TreeNode C = new TreeNode(3);
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F, C);
+        assertEquals(Easy.diameterOfBinaryTree(root), 3);
+    }
+
+    @Test
+    public void isBalanced(){
+        /*
+                 1
+                / \
+               /   \
+              2     \
+             / \     3
+            4   5
+         */
+        TreeNode C = new TreeNode(3);
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F, C);
+        assertEquals(Easy.isBalanced(root), true);
+    }
+
+    @Test
+    public void isBalanced1(){
+        /*
+                 1
+                / \
+               /   \
+              2     \
+             / \
+            4   5
+         */
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F,null);
+        assertEquals(Easy.isBalanced(root), false);
+    }
+
+    @Test
+    public void isSameTree(){
+        /*
+                 1
+                / \
+               /   \
+              2     \
+             / \
+            4   5
+         */
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F,null);
+        assertEquals(Easy.isSameTree(D,D), true);
+        assertEquals(Easy.isSameTree(root,root), true);
+        assertEquals(Easy.isSameTree(root,D), false);
+    }
+
+    @Test
+    public void isSubTree(){
+        /*
+                 1
+                / \
+               /   \
+              2     \
+             / \
+            4   5
+         */
+        TreeNode T = new TreeNode(2);
+        TreeNode D = new TreeNode(4);
+        TreeNode E = new TreeNode(5);
+        TreeNode F = new TreeNode(2, D, E);
+        TreeNode root = new TreeNode(1, F,null);
+        assertEquals(Easy.isSubtree(root,root), true);
+        assertEquals(Easy.isSubtree(root,F), true);
+        assertEquals(Easy.isSubtree(root,E), true);
+        assertEquals(Easy.isSubtree(root,T), false);
+    }
+
+    @Test
+    public void lowestCommonAncestor(){
+        /*
+                 4
+                / \
+               /   \
+              2     \
+             / \     5
+            1   3
+         */
+        TreeNode three = new TreeNode(3);
+        TreeNode one = new TreeNode(1);
+        TreeNode five = new TreeNode(5);
+        TreeNode two = new TreeNode(2, one, three);
+        TreeNode four = new TreeNode(4, two, five);
+        assertEquals(Easy.lowestCommonAncestor(four,one, three).val, 2);
+        assertEquals(Easy.lowestCommonAncestor(four,three,five).val, 4);
+        assertEquals(Easy.lowestCommonAncestor(four,four,three).val, 4);
+        assertEquals(Easy.lowestCommonAncestor(four,four,four).val, 4);
+    }
 }
