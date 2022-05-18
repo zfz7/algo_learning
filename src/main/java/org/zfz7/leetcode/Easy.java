@@ -1,9 +1,6 @@
 package org.zfz7.leetcode;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 public class Easy {
   //  https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
@@ -241,5 +238,19 @@ public class Easy {
     if (p.val > root.val && q.val > root.val) return lowestCommonAncestor(root.right, p, q);
     if (p.val < root.val && q.val < root.val) return lowestCommonAncestor(root.left, p, q);
     return root;
+  }
+
+  public static int lastStoneWeight(int[] stones) {
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a , b) -> b - a);
+    for(int stone: stones){
+      maxHeap.add(stone);
+    }
+    while(maxHeap.size()>=2){
+      int a = maxHeap.poll();
+      int b = maxHeap.poll();
+      if(a == b) continue;
+      maxHeap.add(a-b);
+    }
+    return maxHeap.size() >= 1? maxHeap.peek():0;
   }
 }

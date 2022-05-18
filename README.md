@@ -101,7 +101,8 @@ prev = temp;
 * Advantage: can grow
 
 ### Heap
-
+`PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a , b) -> b - a);`
+`PriorityQueue<Integer> minHeap = new PriorityQueue<>((a , b) -> a - b);`
 ```aidl
          1
         / \
@@ -141,7 +142,12 @@ prev = temp;
 
 
 #### Heapify 
-* Time complexity 
+* Time complexity o(n)
+* Start at index arr.length 
+  * Is arr[i] greater that left and right childe? continue
+  * otherwise swap
+    * Does the swapped down element need to be futher swapped?
+* 
 
 
 | Structure          |     |     |     |

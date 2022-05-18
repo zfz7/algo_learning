@@ -131,20 +131,35 @@ public class Medium {
     }
     map.get((int) Math.ceil(((double) index) / 2)).next = null;
   }
+
   static List<List<Integer>> levelOrder;
+
   public static List<List<Integer>> levelOrder(TreeNode root) {
     levelOrder = new ArrayList<>();
-    createLevelOrder(root,0);
+    createLevelOrder(root, 0);
     return levelOrder;
   }
 
   private static void createLevelOrder(TreeNode root, int index) {
-    if(root == null) return;
-    if(levelOrder.size() <= index){
-      levelOrder.add(index,new ArrayList<>());
+    if (root == null) return;
+    if (levelOrder.size() <= index) {
+      levelOrder.add(index, new ArrayList<>());
     }
     levelOrder.get(index).add(root.val);
-    createLevelOrder(root.left,index +1);
-    createLevelOrder(root.right,index +1);
+    createLevelOrder(root.left, index + 1);
+    createLevelOrder(root.right, index + 1);
+  }
+
+  public static int[][] kClosest(int[][] points, int k) {
+    PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> (Math.sqrt(a[0] * a[0] + a[1] * a[1]) - Math.sqrt(b[0] * b[0] + b[1] * b[1]) > 0)? 1:-1);
+    for(int[] point: points){
+      minHeap.add(point);
+    }
+    int[][] result= new int[k][2];
+
+    for (int i = 0; i < k; i++) {
+      result[i] = minHeap.poll();
+    }
+    return result;
   }
 }

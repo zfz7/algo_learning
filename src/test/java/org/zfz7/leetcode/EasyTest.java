@@ -283,4 +283,10 @@ public class EasyTest {
     assertEquals(k.add(4), 4);
   }
 
+  @Test
+  public void lastStoneWeight(){
+    assertEquals(Easy.lastStoneWeight(new int[]{2,7,4,1,8,1}),1);
+    assertEquals(Easy.lastStoneWeight(new int[]{1,3}),2);
+  }
+
 }
