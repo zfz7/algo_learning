@@ -240,17 +240,41 @@ public class Easy {
     return root;
   }
 
+  //https://leetcode.com/problems/last-stone-weight/
   public static int lastStoneWeight(int[] stones) {
-    PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a , b) -> b - a);
-    for(int stone: stones){
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+    for (int stone : stones) {
       maxHeap.add(stone);
     }
-    while(maxHeap.size()>=2){
+    while (maxHeap.size() >= 2) {
       int a = maxHeap.poll();
       int b = maxHeap.poll();
-      if(a == b) continue;
-      maxHeap.add(a-b);
+      if (a == b) continue;
+      maxHeap.add(a - b);
     }
-    return maxHeap.size() >= 1? maxHeap.peek():0;
+    return maxHeap.size() >= 1 ? maxHeap.peek() : 0;
+  }
+
+  //https://leetcode.com/problems/climbing-stairs/
+  public static int climbStairs(int n) {
+      if(n == 0 ) return 0;
+      if(n == 1 ) return 1;
+      int one = 1;
+      int two = 1;
+      int temp;
+      for (int i = 0; i < n - 1; i++) {
+        temp = one;
+        one = one + two;
+        two = temp;
+      }
+      return one;
+  }
+//https://leetcode.com/problems/min-cost-climbing-stairs/
+  public static int minCostClimbingStairs(int[] cost) {
+    for (int i = cost.length - 3 ; i >= 0 ; i--) {
+      cost[i] = Math.min(cost[i] + cost[i+1], cost[i] + cost[i+2]);
+    }
+    return Math.min(cost[0],cost[1]);
   }
 }
+

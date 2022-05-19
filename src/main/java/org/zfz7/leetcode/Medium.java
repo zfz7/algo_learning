@@ -151,15 +151,24 @@ public class Medium {
   }
 
   public static int[][] kClosest(int[][] points, int k) {
-    PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> (Math.sqrt(a[0] * a[0] + a[1] * a[1]) - Math.sqrt(b[0] * b[0] + b[1] * b[1]) > 0)? 1:-1);
-    for(int[] point: points){
+    PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> (Math.sqrt(a[0] * a[0] + a[1] * a[1]) - Math.sqrt(b[0] * b[0] + b[1] * b[1]) > 0) ? 1 : -1);
+    for (int[] point : points) {
       minHeap.add(point);
     }
-    int[][] result= new int[k][2];
+    int[][] result = new int[k][2];
 
     for (int i = 0; i < k; i++) {
       result[i] = minHeap.poll();
     }
     return result;
+  }
+
+  //https://leetcode.com/problems/house-robber/
+  public static int rob(int[] nums) {
+    for (int i = 0; i < nums.length; i++) {
+      nums[i] = Math.max(nums[i] + (((i - 2) < 0) ? 0 : nums[i - 2]),
+              ((i - 1) < 0) ? 0 : nums[i - 1]);
+    }
+    return Math.max(nums.length - 2 < 0 ? 0 : nums[nums.length - 2], nums[nums.length - 1]);
   }
 }

@@ -289,4 +289,16 @@ public class EasyTest {
     assertEquals(Easy.lastStoneWeight(new int[]{1,3}),2);
   }
 
+  @Test
+  public void climbStairs(){
+    assertEquals(Easy.climbStairs(2),2);
+    assertEquals(Easy.climbStairs(3),3);
+    assertEquals(Easy.climbStairs(4),5);
+  }
+
+  @Test
+  public void minCostClimbingStairs(){
+    assertEquals(Easy.minCostClimbingStairs(new int[]{10,15,20}),15);
+    assertEquals(Easy.minCostClimbingStairs(new int[]{1,100,1,1,1,100,1,1,100,1}),6);
+  }
 }

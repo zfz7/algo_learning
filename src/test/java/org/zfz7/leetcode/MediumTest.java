@@ -116,4 +116,11 @@ public class MediumTest {
     assertArrayEquals(Medium.kClosest(new int[][]{ {1,3},{-2,2}},1), new int[][]{{-2,2}});
     assertArrayEquals(Medium.kClosest(new int[][]{{3,3},{5,-1},{-2,4}},2), new int[][]{{3,3},{-2,4}});
   }
+
+  @Test
+  public void rob(){
+    assertEquals(Medium.rob(new int[]{1,2,3,1 }), 4);
+    assertEquals(Medium.rob(new int[]{2,1,1,2}), 4);
+    assertEquals(Medium.rob(new int[]{2,7,9,3,1}), 12);
+  }
 }
