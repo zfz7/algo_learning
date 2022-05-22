@@ -123,4 +123,18 @@ public class MediumTest {
     assertEquals(Medium.rob(new int[]{2,1,1,2}), 4);
     assertEquals(Medium.rob(new int[]{2,7,9,3,1}), 12);
   }
+
+  @Test
+  public void canJump(){
+    assertEquals(Medium.canJump(new int[]{2,3,1,1,4}),true);
+    assertEquals(Medium.canJump(new int[]{3,2,1,0,4}),false);
+    assertEquals(Medium.canJump(new int[]{0}),true);
+  }
+
+  @Test
+  public void jump(){
+    assertEquals(Medium.jump(new int[]{2,3,1,1,4}),2);
+    assertEquals(Medium.jump(new int[]{2,3,0,1,4}),2);
+    assertEquals(Medium.jump(new int[]{0}),0);
+  }
 }

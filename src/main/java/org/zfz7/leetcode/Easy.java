@@ -276,5 +276,18 @@ public class Easy {
     }
     return Math.min(cost[0],cost[1]);
   }
+//https://leetcode.com/problems/maximum-subarray/
+  public static int maxSubArray(int[] nums) {
+    int max = nums[0];
+    int sum = 0;
+    for (int end = 0; end < nums.length; end++) {
+      if(sum<0){
+        sum = 0;
+      }
+      sum += nums[end];
+      max = Math.max(sum,max);
+    }
+    return max;
+  }
 }
 

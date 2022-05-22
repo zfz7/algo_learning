@@ -301,4 +301,11 @@ public class EasyTest {
     assertEquals(Easy.minCostClimbingStairs(new int[]{10,15,20}),15);
     assertEquals(Easy.minCostClimbingStairs(new int[]{1,100,1,1,1,100,1,1,100,1}),6);
   }
+
+  @Test
+  public void maxSubArray(){
+    assertEquals(Easy.maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}),6);
+    assertEquals(Easy.maxSubArray(new int[]{1}),1);
+    assertEquals(Easy.maxSubArray(new int[]{5,4,-1,7,8}),23);
+  }
 }

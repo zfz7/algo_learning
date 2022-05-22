@@ -171,4 +171,33 @@ public class Medium {
     }
     return Math.max(nums.length - 2 < 0 ? 0 : nums[nums.length - 2], nums[nums.length - 1]);
   }
+
+  //https://leetcode.com/problems/jump-game/
+  public static boolean canJump(int[] nums) {
+    int rightMostReachable = nums.length - 1;
+    for (int i = nums.length - 1; i >= 0; i--) {
+      if (nums[i] + i >= rightMostReachable) {
+        rightMostReachable = i;
+      }
+    }
+    return rightMostReachable == 0;
+  }
+
+  //  https://leetcode.com/problems/jump-game-ii/
+  public static int jump(int[] nums) {
+    int[]  minJump = new int[nums.length];
+  if(nums.length == 1) return 0;
+    for (int i = nums.length - 1; i >= 0; i--) {
+      if(nums[i] + i  >= nums.length - 1 ){
+        minJump[i] = 1;
+        continue;
+      }
+      int min =nums.length;
+      for (int jumps = 1; jumps <= nums[i];jumps++) {
+        min = Math.min(min, minJump[i + jumps]);
+      }
+      minJump[i] = 1 + min;
+    }
+    return minJump[0];
+  }
 }
