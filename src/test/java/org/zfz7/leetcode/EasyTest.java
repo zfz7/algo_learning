@@ -317,4 +317,19 @@ public class EasyTest {
     assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,10), new Interval(9,15))),false);
     assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,10))),true);
   }
+
+  @Test
+  public void isHappy(){
+    assertEquals(Easy.isHappy(19),true);
+    assertEquals(Easy.isHappy(2),false);
+    assertEquals(Easy.isHappy(1),true);
+  }
+
+  @Test
+  public void plusOne(){
+    assertArrayEquals(Easy.plusOne(new int[]{1,2,3}),new int[]{1,2,4});
+    assertArrayEquals(Easy.plusOne(new int[]{1,2,9}),new int[]{1,3,0});
+    System.out.println(Arrays.toString(Easy.plusOne(new int[]{9})));
+    assertArrayEquals(Easy.plusOne(new int[]{9}),new int[]{1,0});
+  }
 }

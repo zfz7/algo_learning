@@ -301,5 +301,34 @@ public class Easy {
     }
     return true;
   }
+  public static boolean isHappy(int n) {
+    HashSet<Integer> seen = new HashSet<>();
+    seen.add(n);
+    while(true){
+      int sum = 0;
+      while(n>0){
+        int digit = n%10;
+        sum += digit * digit;
+        n = n/10;
+      }
+
+      if(sum == 1) return true;
+      if(seen.contains(sum)) return false;
+      seen.add(sum);
+      n=sum;
+    }
+  }
+  public static int[] plusOne(int[] digits) {
+    for (int i = digits.length -1; i >= 0  ; i--) {
+      if(digits[i] != 9){
+        digits[i]++;
+        return digits;
+      }
+      digits[i] = 0;
+    }
+    int[] overflow = new int[digits.length +1];
+    overflow[0] =1;
+    return overflow;
+  }
 }
 
