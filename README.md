@@ -1,7 +1,19 @@
+
 # algo_learning
 
 ## Sorting
+```aidl
+List<Integer> intervals = new List()
+List<Integer> sorted = new ArrayList<Integer>(intervals);
+sorted.sort((a,b) -> a - b);
+```
 
+##### Ascending  
+`(a,b) -> a - b`
+-1: a goes before b
+1: a goes after b
+##### Descending
+`(a,b) -> b - a`
 ### Bubble Sort
 
 Time Complexity O(n^2)

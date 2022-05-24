@@ -185,19 +185,49 @@ public class Medium {
 
   //  https://leetcode.com/problems/jump-game-ii/
   public static int jump(int[] nums) {
-    int[]  minJump = new int[nums.length];
-  if(nums.length == 1) return 0;
+    int[] minJump = new int[nums.length];
+    if (nums.length == 1) return 0;
     for (int i = nums.length - 1; i >= 0; i--) {
-      if(nums[i] + i  >= nums.length - 1 ){
+      if (nums[i] + i >= nums.length - 1) {
         minJump[i] = 1;
         continue;
       }
-      int min =nums.length;
-      for (int jumps = 1; jumps <= nums[i];jumps++) {
+      int min = nums.length;
+      for (int jumps = 1; jumps <= nums[i]; jumps++) {
         min = Math.min(min, minJump[i + jumps]);
       }
       minJump[i] = 1 + min;
     }
     return minJump[0];
   }
+
+  //https://leetcode.com/problems/insert-interval/
+  public static int[][] insert(int[][] intervals, int[] newInterval) {
+    int[][] result = new int[intervals.length + 1][2];
+    int i = 0;
+    int nextRes = 0;
+    if(intervals.length == 1 && intervals[0].length ==0) return new int[][]{{newInterval[0], newInterval[1]}};
+    while (i < intervals.length &&intervals[i][1] < newInterval[0]) {
+      result[nextRes][0] = intervals[i][0];
+      result[nextRes++][1] = intervals[i][1];
+      i++;
+    }
+    while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+      newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+      newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+      i++;
+    }
+    result[nextRes][0] = newInterval[0];
+    result[nextRes++][1] = newInterval[1];
+    while (i < intervals.length) {
+      result[nextRes][0] = intervals[i][0];
+      result[nextRes++][1] = intervals[i][1];
+      i++;
+    }
+    int[][] result1 = new int[nextRes][2];
+    System.arraycopy(result, 0, result1, 0, nextRes);
+    return result1;
+  }
+
+
 }

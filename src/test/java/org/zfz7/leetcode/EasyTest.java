@@ -3,6 +3,7 @@ package org.zfz7.leetcode;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -307,5 +308,13 @@ public class EasyTest {
     assertEquals(Easy.maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}),6);
     assertEquals(Easy.maxSubArray(new int[]{1}),1);
     assertEquals(Easy.maxSubArray(new int[]{5,4,-1,7,8}),23);
+  }
+
+  @Test
+  public void canAttendMeetings(){
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(0,30), new Interval(5,10), new Interval(15,20))),false);
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,8), new Interval(9,15))),true);
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,10), new Interval(9,15))),false);
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,10))),true);
   }
 }

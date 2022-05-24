@@ -3,6 +3,7 @@ package org.zfz7.leetcode;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -136,5 +137,15 @@ public class MediumTest {
     assertEquals(Medium.jump(new int[]{2,3,1,1,4}),2);
     assertEquals(Medium.jump(new int[]{2,3,0,1,4}),2);
     assertEquals(Medium.jump(new int[]{0}),0);
+  }
+
+  @Test
+  public void insert(){
+    System.out.println(Arrays.deepToString(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{4,5})));
+    assertArrayEquals(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{4,5}),new int[][]{{1,3},{4,5},{6,9}});
+
+    System.out.println(Arrays.deepToString(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{2,5})));
+    assertArrayEquals(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{2,5}),new int[][]{{1,5},{6,9}});
+    assertArrayEquals(Medium.insert(new int[][]{{}}, new int[]{5,7}),new int[][]{{5,7}});
   }
 }

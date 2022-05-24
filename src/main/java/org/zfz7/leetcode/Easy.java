@@ -289,5 +289,17 @@ public class Easy {
     }
     return max;
   }
+  //https://www.lintcode.com/problem/920/
+  public static boolean canAttendMeetings(List<Interval> intervals) {
+    List<Interval> sorted= new ArrayList<Interval>(intervals);
+    sorted.sort((a,b) ->a.start-b.start);
+    for (int i =0; i < sorted.size() -1; i++) {
+      Interval current = sorted.get(i);
+      Interval next = sorted.get(i+1);
+      System.out.println(current.start);
+      if(current.start < next.start && next.start < current.end) return false;
+    }
+    return true;
+  }
 }
 
