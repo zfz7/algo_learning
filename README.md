@@ -189,3 +189,15 @@ for(int i=0; i < arr.length; i++){
 | Linear Search |            |     |     |
 | Binary Search |            |     |     |
 
+
+##Bit manipulation 
+
+| Operator | Description          |
+|----------|----------------------|
+| &        | Bitwise AND          |
+| (pipe)   | Bitwise OR           |
+| ^        | Bitwise XOR          |
+| ~        | Bitwise Complement   |
+| <<       | Left Shift           |
+| >>       | Right Shift          |
+| >>>      | Unsigned Right Shift |

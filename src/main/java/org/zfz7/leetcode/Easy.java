@@ -257,78 +257,128 @@ public class Easy {
 
   //https://leetcode.com/problems/climbing-stairs/
   public static int climbStairs(int n) {
-      if(n == 0 ) return 0;
-      if(n == 1 ) return 1;
-      int one = 1;
-      int two = 1;
-      int temp;
-      for (int i = 0; i < n - 1; i++) {
-        temp = one;
-        one = one + two;
-        two = temp;
-      }
-      return one;
-  }
-//https://leetcode.com/problems/min-cost-climbing-stairs/
-  public static int minCostClimbingStairs(int[] cost) {
-    for (int i = cost.length - 3 ; i >= 0 ; i--) {
-      cost[i] = Math.min(cost[i] + cost[i+1], cost[i] + cost[i+2]);
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    int one = 1;
+    int two = 1;
+    int temp;
+    for (int i = 0; i < n - 1; i++) {
+      temp = one;
+      one = one + two;
+      two = temp;
     }
-    return Math.min(cost[0],cost[1]);
+    return one;
   }
-//https://leetcode.com/problems/maximum-subarray/
+
+  //https://leetcode.com/problems/min-cost-climbing-stairs/
+  public static int minCostClimbingStairs(int[] cost) {
+    for (int i = cost.length - 3; i >= 0; i--) {
+      cost[i] = Math.min(cost[i] + cost[i + 1], cost[i] + cost[i + 2]);
+    }
+    return Math.min(cost[0], cost[1]);
+  }
+
+  //https://leetcode.com/problems/maximum-subarray/
   public static int maxSubArray(int[] nums) {
     int max = nums[0];
     int sum = 0;
     for (int end = 0; end < nums.length; end++) {
-      if(sum<0){
+      if (sum < 0) {
         sum = 0;
       }
       sum += nums[end];
-      max = Math.max(sum,max);
+      max = Math.max(sum, max);
     }
     return max;
   }
+
   //https://www.lintcode.com/problem/920/
   public static boolean canAttendMeetings(List<Interval> intervals) {
-    List<Interval> sorted= new ArrayList<Interval>(intervals);
-    sorted.sort((a,b) ->a.start-b.start);
-    for (int i =0; i < sorted.size() -1; i++) {
+    List<Interval> sorted = new ArrayList<Interval>(intervals);
+    sorted.sort((a, b) -> a.start - b.start);
+    for (int i = 0; i < sorted.size() - 1; i++) {
       Interval current = sorted.get(i);
-      Interval next = sorted.get(i+1);
+      Interval next = sorted.get(i + 1);
       System.out.println(current.start);
-      if(current.start < next.start && next.start < current.end) return false;
+      if (current.start < next.start && next.start < current.end) return false;
     }
     return true;
   }
+
   public static boolean isHappy(int n) {
     HashSet<Integer> seen = new HashSet<>();
     seen.add(n);
-    while(true){
+    while (true) {
       int sum = 0;
-      while(n>0){
-        int digit = n%10;
+      while (n > 0) {
+        int digit = n % 10;
         sum += digit * digit;
-        n = n/10;
+        n = n / 10;
       }
 
-      if(sum == 1) return true;
-      if(seen.contains(sum)) return false;
+      if (sum == 1) return true;
+      if (seen.contains(sum)) return false;
       seen.add(sum);
-      n=sum;
+      n = sum;
     }
   }
+
   public static int[] plusOne(int[] digits) {
-    for (int i = digits.length -1; i >= 0  ; i--) {
-      if(digits[i] != 9){
+    for (int i = digits.length - 1; i >= 0; i--) {
+      if (digits[i] != 9) {
         digits[i]++;
         return digits;
       }
       digits[i] = 0;
     }
-    int[] overflow = new int[digits.length +1];
-    overflow[0] =1;
+    int[] overflow = new int[digits.length + 1];
+    overflow[0] = 1;
     return overflow;
   }
+
+  ///https://leetcode.com/problems/single-number/
+  public static int singleNumber(int[] nums) {
+    int x = 0;
+    for (int num : nums) {
+      x = x ^ num;
+    }
+    return x;
+  }
+
+  //https://leetcode.com/problems/number-of-1-bits/
+  public static int hammingWeight(int n) {
+    int count = 0;
+    while (n != 0) {
+      if ((n & 1) == 1) {
+        count++;
+      }
+      n = n >>> 1;
+    }
+    return count;
+  }
+//https://leetcode.com/problems/counting-bits/
+
+  public static int[] countBits(int n) {
+    int[] res = new int[n + 1];
+    res[0] = 0;
+    for (int i = 1; i <= n; i++) {
+      res[i] = res[i >> 1] + (i & 1);
+    }
+    return res;
+  }
+
+  //https://leetcode.com/problems/reverse-bits/
+  public static int reverseBits(int n) {
+    int res = 0;
+    for (int i = 31; i >= 0; i--) {
+      res  = res<<1;
+      if ((n & 1) == 1) {
+        res = res + 1;
+      }
+      n = n >> 1;
+    }
+    return res;
+  }
+
 }
 

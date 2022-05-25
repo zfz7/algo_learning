@@ -265,11 +265,11 @@ public class EasyTest {
     assertEquals(k.add(5), 5);
     assertArrayEquals(k.dessendingList, new int[]{8, 5, 5});
     assertEquals(k.add(10), 5);
-    assertArrayEquals(k.dessendingList, new int[]{10,8, 5});
+    assertArrayEquals(k.dessendingList, new int[]{10, 8, 5});
     assertEquals(k.add(9), 8);
-    assertArrayEquals(k.dessendingList, new int[]{10,9,8});
+    assertArrayEquals(k.dessendingList, new int[]{10, 9, 8});
     assertEquals(k.add(4), 8);
-    assertArrayEquals(k.dessendingList, new int[]{10,9, 8});
+    assertArrayEquals(k.dessendingList, new int[]{10, 9, 8});
   }
 
   @Test
@@ -285,51 +285,80 @@ public class EasyTest {
   }
 
   @Test
-  public void lastStoneWeight(){
-    assertEquals(Easy.lastStoneWeight(new int[]{2,7,4,1,8,1}),1);
-    assertEquals(Easy.lastStoneWeight(new int[]{1,3}),2);
+  public void lastStoneWeight() {
+    assertEquals(Easy.lastStoneWeight(new int[]{2, 7, 4, 1, 8, 1}), 1);
+    assertEquals(Easy.lastStoneWeight(new int[]{1, 3}), 2);
   }
 
   @Test
-  public void climbStairs(){
-    assertEquals(Easy.climbStairs(2),2);
-    assertEquals(Easy.climbStairs(3),3);
-    assertEquals(Easy.climbStairs(4),5);
+  public void climbStairs() {
+    assertEquals(Easy.climbStairs(2), 2);
+    assertEquals(Easy.climbStairs(3), 3);
+    assertEquals(Easy.climbStairs(4), 5);
   }
 
   @Test
-  public void minCostClimbingStairs(){
-    assertEquals(Easy.minCostClimbingStairs(new int[]{10,15,20}),15);
-    assertEquals(Easy.minCostClimbingStairs(new int[]{1,100,1,1,1,100,1,1,100,1}),6);
+  public void minCostClimbingStairs() {
+    assertEquals(Easy.minCostClimbingStairs(new int[]{10, 15, 20}), 15);
+    assertEquals(Easy.minCostClimbingStairs(new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}), 6);
   }
 
   @Test
-  public void maxSubArray(){
-    assertEquals(Easy.maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}),6);
-    assertEquals(Easy.maxSubArray(new int[]{1}),1);
-    assertEquals(Easy.maxSubArray(new int[]{5,4,-1,7,8}),23);
+  public void maxSubArray() {
+    assertEquals(Easy.maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}), 6);
+    assertEquals(Easy.maxSubArray(new int[]{1}), 1);
+    assertEquals(Easy.maxSubArray(new int[]{5, 4, -1, 7, 8}), 23);
   }
 
   @Test
-  public void canAttendMeetings(){
-    assertEquals(Easy.canAttendMeetings(List.of(new Interval(0,30), new Interval(5,10), new Interval(15,20))),false);
-    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,8), new Interval(9,15))),true);
-    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,10), new Interval(9,15))),false);
-    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5,10))),true);
+  public void canAttendMeetings() {
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(0, 30), new Interval(5, 10), new Interval(15, 20))), false);
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5, 8), new Interval(9, 15))), true);
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5, 10), new Interval(9, 15))), false);
+    assertEquals(Easy.canAttendMeetings(List.of(new Interval(5, 10))), true);
   }
 
   @Test
-  public void isHappy(){
-    assertEquals(Easy.isHappy(19),true);
-    assertEquals(Easy.isHappy(2),false);
-    assertEquals(Easy.isHappy(1),true);
+  public void isHappy() {
+    assertEquals(Easy.isHappy(19), true);
+    assertEquals(Easy.isHappy(2), false);
+    assertEquals(Easy.isHappy(1), true);
   }
 
   @Test
-  public void plusOne(){
-    assertArrayEquals(Easy.plusOne(new int[]{1,2,3}),new int[]{1,2,4});
-    assertArrayEquals(Easy.plusOne(new int[]{1,2,9}),new int[]{1,3,0});
+  public void plusOne() {
+    assertArrayEquals(Easy.plusOne(new int[]{1, 2, 3}), new int[]{1, 2, 4});
+    assertArrayEquals(Easy.plusOne(new int[]{1, 2, 9}), new int[]{1, 3, 0});
     System.out.println(Arrays.toString(Easy.plusOne(new int[]{9})));
-    assertArrayEquals(Easy.plusOne(new int[]{9}),new int[]{1,0});
+    assertArrayEquals(Easy.plusOne(new int[]{9}), new int[]{1, 0});
+  }
+
+  @Test
+  public void singleNumer() {
+    assertEquals(Easy.singleNumber(new int[]{2, 2, 1}), 1);
+    assertEquals(Easy.singleNumber(new int[]{4, 1, 2, 1, 2}), 4);
+    assertEquals(Easy.singleNumber(new int[]{1}), 1);
+  }
+
+  @Test
+  public void hammingWeight() {
+    assertEquals(Easy.hammingWeight(3), 2);
+    assertEquals(Easy.hammingWeight(1), 1);
+    assertEquals(Easy.hammingWeight(-3), 31);
+  }
+
+  @Test
+  public void countBits() {
+    assertArrayEquals(Easy.countBits(0), new int[]{0});
+    assertArrayEquals(Easy.countBits(1), new int[]{0, 1});
+    assertArrayEquals(Easy.countBits(2), new int[]{0, 1, 1});
+    assertArrayEquals(Easy.countBits(5), new int[]{0, 1, 1, 2, 1, 2});
+    assertArrayEquals(Easy.countBits(8), new int[]{0, 1, 1, 2, 1, 2, 2, 3, 1});
+  }
+
+  @Test
+  public void reverseBits() {
+    assertEquals(Easy.reverseBits(43261596), 964176192);
+    assertEquals(Easy.reverseBits(43261596), 964176192);
   }
 }

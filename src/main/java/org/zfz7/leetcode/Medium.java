@@ -1,5 +1,6 @@
 package org.zfz7.leetcode;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class Medium {
@@ -206,8 +207,8 @@ public class Medium {
     int[][] result = new int[intervals.length + 1][2];
     int i = 0;
     int nextRes = 0;
-    if(intervals.length == 1 && intervals[0].length ==0) return new int[][]{{newInterval[0], newInterval[1]}};
-    while (i < intervals.length &&intervals[i][1] < newInterval[0]) {
+    if (intervals.length == 1 && intervals[0].length == 0) return new int[][]{{newInterval[0], newInterval[1]}};
+    while (i < intervals.length && intervals[i][1] < newInterval[0]) {
       result[nextRes][0] = intervals[i][0];
       result[nextRes++][1] = intervals[i][1];
       i++;
@@ -229,5 +230,38 @@ public class Medium {
     return result1;
   }
 
+  //https://leetcode.com/problems/rotate-image/
+  public static void rotate(int[][] matrix) {
+    for (int row = 0; row < matrix.length / 2; row++) {
+      for (int col = row; col < matrix.length - row -1; col++) {
+        swap4Around(row, col, matrix);
+      }
+    }
+    /*
+    row, col
+    0,0 -> 0,2
+    0,1 -> 1,2
+    0,2 -> 2,2
+    1,0 -> 0,1
+    1,1 -> 1,1
+    1,2 -> 2,1
+    2,0 -> 0,0
+    2,1 -> 1,0
+    2,2 -> 2,0
+     */
+  }
+
+  private static void swap4Around(int row, int col, int[][] matrix) {
+    int current = matrix[row][col];
+    for (int n = 0; n < 4; n++) {
+      int nextRow = col;
+      int nextCol = matrix.length - 1 - row;
+      int next = matrix[nextRow][nextCol];
+      matrix[nextRow][nextCol] = current;
+      current = next;
+      row = nextRow;
+      col = nextCol;
+    }
+  }
 
 }

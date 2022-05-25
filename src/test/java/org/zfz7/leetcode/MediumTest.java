@@ -148,4 +148,16 @@ public class MediumTest {
     assertArrayEquals(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{2,5}),new int[][]{{1,5},{6,9}});
     assertArrayEquals(Medium.insert(new int[][]{{}}, new int[]{5,7}),new int[][]{{5,7}});
   }
+
+
+  @Test
+  public void multiply(){
+    int[][] mx = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
+    Medium.rotate(mx);
+    assertArrayEquals(mx, new int[][]{{7,4,1},{8,5,2},{9,6,3}});
+
+    int[][] mx1 = new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+    Medium.rotate(mx1);
+    assertArrayEquals(mx1, new int[][]{{15,13,2,5},{14,3,4,1},{12,6,8,9},{16,7,10,11}});
+  }
 }
