@@ -107,57 +107,72 @@ public class MediumTest {
     ArrayList<List<Integer>> answer = new ArrayList<>();
     answer.add(List.of(4));
     answer.add(List.of(2, 5));
-    answer.add(List.of(1, 3,6));
+    answer.add(List.of(1, 3, 6));
     assertEquals(Medium.levelOrder(four), answer);
 
   }
 
   @Test
-  public void kClosest(){
-    assertArrayEquals(Medium.kClosest(new int[][]{ {1,3},{-2,2}},1), new int[][]{{-2,2}});
-    assertArrayEquals(Medium.kClosest(new int[][]{{3,3},{5,-1},{-2,4}},2), new int[][]{{3,3},{-2,4}});
+  public void kClosest() {
+    assertArrayEquals(Medium.kClosest(new int[][]{{1, 3}, {-2, 2}}, 1), new int[][]{{-2, 2}});
+    assertArrayEquals(Medium.kClosest(new int[][]{{3, 3}, {5, -1}, {-2, 4}}, 2), new int[][]{{3, 3}, {-2, 4}});
   }
 
   @Test
-  public void rob(){
-    assertEquals(Medium.rob(new int[]{1,2,3,1 }), 4);
-    assertEquals(Medium.rob(new int[]{2,1,1,2}), 4);
-    assertEquals(Medium.rob(new int[]{2,7,9,3,1}), 12);
+  public void rob() {
+    assertEquals(Medium.rob(new int[]{1, 2, 3, 1}), 4);
+    assertEquals(Medium.rob(new int[]{2, 1, 1, 2}), 4);
+    assertEquals(Medium.rob(new int[]{2, 7, 9, 3, 1}), 12);
   }
 
   @Test
-  public void canJump(){
-    assertEquals(Medium.canJump(new int[]{2,3,1,1,4}),true);
-    assertEquals(Medium.canJump(new int[]{3,2,1,0,4}),false);
-    assertEquals(Medium.canJump(new int[]{0}),true);
+  public void canJump() {
+    assertEquals(Medium.canJump(new int[]{2, 3, 1, 1, 4}), true);
+    assertEquals(Medium.canJump(new int[]{3, 2, 1, 0, 4}), false);
+    assertEquals(Medium.canJump(new int[]{0}), true);
   }
 
   @Test
-  public void jump(){
-    assertEquals(Medium.jump(new int[]{2,3,1,1,4}),2);
-    assertEquals(Medium.jump(new int[]{2,3,0,1,4}),2);
-    assertEquals(Medium.jump(new int[]{0}),0);
+  public void jump() {
+    assertEquals(Medium.jump(new int[]{2, 3, 1, 1, 4}), 2);
+    assertEquals(Medium.jump(new int[]{2, 3, 0, 1, 4}), 2);
+    assertEquals(Medium.jump(new int[]{0}), 0);
   }
 
   @Test
-  public void insert(){
-    System.out.println(Arrays.deepToString(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{4,5})));
-    assertArrayEquals(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{4,5}),new int[][]{{1,3},{4,5},{6,9}});
+  public void insert() {
+    System.out.println(Arrays.deepToString(Medium.insert(new int[][]{{1, 3}, {6, 9}}, new int[]{4, 5})));
+    assertArrayEquals(Medium.insert(new int[][]{{1, 3}, {6, 9}}, new int[]{4, 5}), new int[][]{{1, 3}, {4, 5}, {6, 9}});
 
-    System.out.println(Arrays.deepToString(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{2,5})));
-    assertArrayEquals(Medium.insert(new int[][]{{1,3},{6,9}}, new int[]{2,5}),new int[][]{{1,5},{6,9}});
-    assertArrayEquals(Medium.insert(new int[][]{{}}, new int[]{5,7}),new int[][]{{5,7}});
+    System.out.println(Arrays.deepToString(Medium.insert(new int[][]{{1, 3}, {6, 9}}, new int[]{2, 5})));
+    assertArrayEquals(Medium.insert(new int[][]{{1, 3}, {6, 9}}, new int[]{2, 5}), new int[][]{{1, 5}, {6, 9}});
+    assertArrayEquals(Medium.insert(new int[][]{{}}, new int[]{5, 7}), new int[][]{{5, 7}});
   }
 
 
   @Test
-  public void multiply(){
-    int[][] mx = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
+  public void multiply() {
+    int[][] mx = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     Medium.rotate(mx);
-    assertArrayEquals(mx, new int[][]{{7,4,1},{8,5,2},{9,6,3}});
+    assertArrayEquals(mx, new int[][]{{7, 4, 1}, {8, 5, 2}, {9, 6, 3}});
 
-    int[][] mx1 = new int[][]{{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+    int[][] mx1 = new int[][]{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}};
     Medium.rotate(mx1);
-    assertArrayEquals(mx1, new int[][]{{15,13,2,5},{14,3,4,1},{12,6,8,9},{16,7,10,11}});
+    assertArrayEquals(mx1, new int[][]{{15, 13, 2, 5}, {14, 3, 4, 1}, {12, 6, 8, 9}, {16, 7, 10, 11}});
+  }
+
+  @Test
+  public void numIsland() {
+    assertEquals(Medium.numIslands(new char[][]{
+            {'1', '1', '1', '1', '0'},
+            {'1', '1', '0', '1', '0'},
+            {'1', '1', '0', '0', '0'},
+            {'0', '0', '0', '0', '0'}}), 1);
+
+    assertEquals(Medium.numIslands(new char[][]{
+            {'1', '1', '0', '0', '0'},
+            {'1', '1', '0', '0', '0'},
+            {'0', '0', '1', '0', '0'},
+            {'0', '0', '0', '1', '1'}}), 3);
   }
 }

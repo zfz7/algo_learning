@@ -1,6 +1,5 @@
 package org.zfz7.leetcode;
 
-import java.math.BigInteger;
 import java.util.*;
 
 public class Medium {
@@ -233,7 +232,7 @@ public class Medium {
   //https://leetcode.com/problems/rotate-image/
   public static void rotate(int[][] matrix) {
     for (int row = 0; row < matrix.length / 2; row++) {
-      for (int col = row; col < matrix.length - row -1; col++) {
+      for (int col = row; col < matrix.length - row - 1; col++) {
         swap4Around(row, col, matrix);
       }
     }
@@ -264,4 +263,51 @@ public class Medium {
     }
   }
 
+  private static HashMap<Node, Node> oldToNew = new HashMap<>();
+
+  //https://leetcode.com/problems/clone-graph/submissions/
+  public static Node cloneGraph(Node node) {
+    oldToNew = new HashMap<>();
+    return node == null ? null : cloneNode(node);
+  }
+
+  private static Node cloneNode(Node node) {
+    if (oldToNew.containsKey(node)) return node;
+    Node newNode = new Node(node.val);
+    oldToNew.put(node, newNode);
+    for (Node n : node.neighbors) {
+      if (oldToNew.containsKey(n)) {
+        newNode.neighbors.add(oldToNew.get(n));
+      } else {
+        newNode.neighbors.add(cloneNode(n));
+      }
+    }
+    return newNode;
+  }
+
+  //https://leetcode.com/problems/number-of-islands/
+  public static int numIslands(char[][] grid) {
+    int count = 0;
+    for (int row = 0; row < grid.length; row++) {
+      for (int col = 0; col < grid[row].length; col++) {
+        if (grid[row][col] == '1') {
+          count++;
+          travelIsland(grid, row, col);
+        }
+      }
+    }
+    return count;
+  }
+
+  private static void travelIsland(char[][] grid, int row, int col) {
+    //if index out of bounds return
+    if (row < 0 || row >= grid.length || col < 0 || col >= grid[row].length) return;
+    if (grid[row][col] == '1') {
+      grid[row][col] = 'v';
+      travelIsland(grid, row - 1, col);
+      travelIsland(grid, row + 1, col);
+      travelIsland(grid, row, col + 1);
+      travelIsland(grid, row, col - 1);
+    }
+  }
 }
