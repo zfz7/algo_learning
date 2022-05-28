@@ -310,4 +310,166 @@ public class Medium {
       travelIsland(grid, row, col - 1);
     }
   }
+
+  public static int getSum1(int a, int b) {
+    int sum = 0;
+    int carry = 0;
+    for (int i = 0; i < 32; i++) {
+      int aDigit = a & 1;
+      a = a >> 1;
+      int bDigit = b & 1;
+      b = b >> 1;
+      if (aDigit == 1 && bDigit == 1 && carry == 1) {
+        carry = 1;
+        sum = sum | ((i == 31) ? -(int) Math.pow(2, 31) - 1 : (int) Math.pow(2, i));
+      }
+      if (aDigit == 1 && bDigit == 0 && carry == 0 ||
+              aDigit == 0 && bDigit == 1 && carry == 0 ||
+              aDigit == 0 && bDigit == 0 && carry == 1) {
+        carry = 0;
+        sum = sum | ((i == 31) ? -(int) Math.pow(2, 31) - 1 : (int) Math.pow(2, i));
+      }
+      if (aDigit == 1 && bDigit == 1 && carry == 0 ||
+              aDigit == 0 && bDigit == 1 && carry == 1 ||
+              aDigit == 1 && bDigit == 0 && carry == 1) {
+        carry = 1;
+      }
+      if (aDigit == 0 && bDigit == 0 && carry == 0) {
+        carry = 0;
+      }
+    }
+    return sum;
+  }
+
+  public static int getSum(int a, int b) {
+    int xor = a ^ b;
+    int and = (a & b) << 1;
+    while (and != 0) {
+      int temp = xor;
+      xor = xor ^ and;
+      and = (temp & and) << 1;
+    }
+    return xor;
+  }
+
+  public static int reverse(int x) {
+    int rx = reverseInt(x);
+    return (x == reverseInt(rx) || x % reverseInt(rx) == 0) ? rx : 0;
+  }
+
+  private static int reverseInt(int x) {
+    int remaining = x;
+    int ret = 0;
+
+    while (remaining != 0) {
+      ret = (ret * 10) + remaining % 10;
+      remaining = remaining / 10;
+    }
+    return ret;
+  }
+
+  public static List<List<Integer>> subsets(int[] nums) {
+    ArrayList<List<Integer>> res = new ArrayList<>();
+    ArrayList<Integer> subset = new ArrayList<>();
+    findSubset(nums, res, subset, 0);
+    return res;
+  }
+
+  private static void findSubset(int[] nums, ArrayList<List<Integer>> res, ArrayList<Integer> subset, int index) {
+    if (index >= nums.length) {
+      res.add(new ArrayList<>(subset));
+      return;
+    }
+    subset.add(nums[index]);
+    findSubset(nums, res, subset, index + 1);
+    subset.remove((Integer) nums[index]);
+    findSubset(nums, res, subset, index + 1);
+  }
+
+  public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+    ArrayList<List<Integer>> res = new ArrayList<>();
+    ArrayList<Integer> subset = new ArrayList<>();
+    findCombination(candidates, res, subset, 0, target, 0);
+    return res;
+  }
+
+  private static void findCombination(int[] candidates, ArrayList<List<Integer>> res,
+                                      ArrayList<Integer> subset, int index, int target, int sum) {
+    if (index >= candidates.length) {
+      return;
+    }
+    if (sum > target) {
+      return;
+    }
+    if (sum == target) {
+      res.add(new ArrayList<>(subset));
+      return;
+    }
+    subset.add(candidates[index]);
+    findCombination(candidates, res, subset, index, target, sum + candidates[index]);
+    subset.remove((Integer) candidates[index]);
+    findCombination(candidates, res, subset, index + 1, target, sum);
+  }
+
+  //https://leetcode.com/problems/product-of-array-except-self/submissions/
+  public static int[] productExceptSelf(int[] nums) {
+    int rightProduct = 1;
+    int leftProduct = 1;
+    int[] leftProducts = new int[nums.length];
+    int[] rightProducts = new int[nums.length];
+    int[] res = new int[nums.length];
+    leftProducts[0] = 1;
+    rightProducts[nums.length - 1] = 1;
+    for (int i = 1; i < nums.length; i++) {
+      leftProduct = leftProduct * nums[i - 1];
+      leftProducts[i] = leftProduct;
+    }
+    for (int i = nums.length - 1; i > 0; i--) {
+      rightProduct = rightProduct * nums[i];
+      rightProducts[i - 1] = rightProduct;
+    }
+    for (int i = 0; i < nums.length; i++) {
+      res[i] = leftProducts[i] * rightProducts[i];
+    }
+    return res;
+  }
+
+  //https://leetcode.com/problems/top-k-frequent-elements/
+  public static int[] topKFrequent(int[] nums, int k) {
+    HashMap<Integer, Integer> numToCount = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+      if (numToCount.containsKey((Integer) nums[i])) {
+        numToCount.put(nums[i], numToCount.get(nums[i]) + 1);
+      } else {
+        numToCount.put(nums[i], 1);
+      }
+    }
+    PriorityQueue<Pair> desCounts = new PriorityQueue<>((a, b) -> b.value - a.value);
+
+    for (Integer key : numToCount.keySet()) {
+      desCounts.add(new Pair(key, numToCount.get(key)));
+    }
+    int[] res = new int[k];
+    for (int i = 0; i < res.length; i++) {
+      res[i] = desCounts.poll().key;
+    }
+    return res;
+  }
+
+  //https://leetcode.com/problems/valid-sudoku/
+  public static boolean isValidSudoku(char[][] board) {
+    HashSet<String> valid = new HashSet<>();
+    for (int row = 0; row < 9; row++) {
+      for (int col = 0; col < 9; col++) {
+        if (board[row][col] == '.') continue;
+        if(valid.contains("Row:"+row+"|"+board[row][col]))return false;
+        valid.add("Row:"+row+"|"+board[row][col]);
+        if(valid.contains("Col:"+col+"|"+board[row][col]))return false;
+        valid.add("Col:"+col+"|"+board[row][col]);
+        if(valid.contains("Box:"+col/3+"|"+row/3+"|"+board[row][col]))return false;
+        valid.add("Box:"+col/3+"|"+row/3+"|"+board[row][col]);
+      }
+    }
+    return true;
+  }
 }

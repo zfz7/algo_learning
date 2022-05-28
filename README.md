@@ -189,6 +189,14 @@ for(int i=0; i < arr.length; i++){
 | Linear Search |            |     |     |
 | Binary Search |            |     |     |
 
+### Depth First Search
+* Stack
+* all possible results -> dfs
+
+
+### Breath First Search
+* Queue
+* shortest path on simple graph -> bfs
 
 ##Bit manipulation 
 

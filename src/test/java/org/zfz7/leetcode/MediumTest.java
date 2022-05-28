@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class MediumTest {
 
@@ -174,5 +173,80 @@ public class MediumTest {
             {'1', '1', '0', '0', '0'},
             {'0', '0', '1', '0', '0'},
             {'0', '0', '0', '1', '1'}}), 3);
+  }
+
+  @Test
+  public void getSum() {
+    assertEquals(Medium.getSum(2, 3), 5);
+    assertEquals(Medium.getSum(2, 1), 3);
+    assertEquals(Medium.getSum(20, 30), 50);
+    assertEquals(Medium.getSum(4, -1), 3);
+    assertEquals(Medium.getSum(-4, -1), -5);
+    assertEquals(Medium.getSum(0, 0), 0);
+    assertEquals(Medium.getSum(-12, -8), -20);
+  }
+
+  @Test
+  public void reverse() {
+    assertEquals(Medium.reverse(23), 32);
+    assertEquals(Medium.reverse(120), 21);
+    assertEquals(Medium.reverse(232), 232);
+    assertEquals(Medium.reverse(-232), -232);
+    assertEquals(Medium.reverse(1534236469), 0);
+  }
+
+  @Test
+  public void subsets() {
+    List<List<Integer>> res = Medium.subsets(new int[]{1, 2, 3});
+    Integer[][] ans = new Integer[][]{{1, 2, 3}, {1, 2}, {1, 3}, {1}, {2, 3}, {2}, {3}, {}};
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+  }
+
+  @Test
+  public void combinationSum() {
+    List<List<Integer>> res = Medium.combinationSum(new int[]{2, 3, 6, 7}, 7);
+    Integer[][] ans = new Integer[][]{{2, 2, 3}, {7}};
+
+    System.out.println(res);
+    System.out.println(Arrays.deepToString(ans));
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+  }
+
+  @Test
+  public void productExceptSelf() {
+    assertArrayEquals(Medium.productExceptSelf(new int[]{1, 2, 3, 4}), new int[]{24, 12, 8, 6});
+  }
+
+  @Test
+  public void topKFrequent() {
+    assertArrayEquals(Medium.topKFrequent(new int[]{1, 1, 1, 2, 2, 3}, 2), new int[]{1, 2});
+  }
+
+  @Test
+  public void isValidSudoku() {
+    assertEquals(Medium.isValidSudoku(new char[][]{{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
+            , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
+            , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
+            , {'8', '.', '.', '.', '6', '.', '.', '.', '3'}
+            , {'4', '.', '.', '8', '.', '3', '.', '.', '1'}
+            , {'7', '.', '.', '.', '2', '.', '.', '.', '6'}
+            , {'.', '6', '.', '.', '.', '.', '2', '8', '.'}
+            , {'.', '.', '.', '4', '1', '9', '.', '.', '5'}
+            , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}}), true);
+
+    assertEquals(Medium.isValidSudoku(new char[][]
+            {{'.', '.', '.', '.', '5', '.', '.', '1', '.'},
+            {'.', '4', '.', '3', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '3', '.', '.', '1'},
+            {'8', '.', '.', '.', '.', '.', '.', '2', '.'},
+            {'.', '.', '2', '.', '7', '.', '.', '.', '.'},
+            {'.', '1', '5', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '2', '.', '.', '.'},
+            {'.', '2', '.', '9', '.', '.', '.', '.', '.'},
+            {'.', '.', '4', '.', '.', '.', '.', '.', '.'}}), false);
   }
 }

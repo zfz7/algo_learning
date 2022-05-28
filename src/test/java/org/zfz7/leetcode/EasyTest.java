@@ -361,4 +361,11 @@ public class EasyTest {
     assertEquals(Easy.reverseBits(43261596), 964176192);
     assertEquals(Easy.reverseBits(43261596), 964176192);
   }
+
+  @Test
+  public void missingNumber() {
+    assertEquals(Easy.missingNumber(new int[]{3,0,1}), 2);
+    assertEquals(Easy.missingNumber(new int[]{0,1}), 2);
+    assertEquals(Easy.missingNumber(new int[]{9,6,4,2,3,5,7,0,1}), 8);
+  }
 }
