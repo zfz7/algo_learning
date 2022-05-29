@@ -462,14 +462,133 @@ public class Medium {
     for (int row = 0; row < 9; row++) {
       for (int col = 0; col < 9; col++) {
         if (board[row][col] == '.') continue;
-        if(valid.contains("Row:"+row+"|"+board[row][col]))return false;
-        valid.add("Row:"+row+"|"+board[row][col]);
-        if(valid.contains("Col:"+col+"|"+board[row][col]))return false;
-        valid.add("Col:"+col+"|"+board[row][col]);
-        if(valid.contains("Box:"+col/3+"|"+row/3+"|"+board[row][col]))return false;
-        valid.add("Box:"+col/3+"|"+row/3+"|"+board[row][col]);
+        if (valid.contains("Row:" + row + "|" + board[row][col])) return false;
+        valid.add("Row:" + row + "|" + board[row][col]);
+        if (valid.contains("Col:" + col + "|" + board[row][col])) return false;
+        valid.add("Col:" + col + "|" + board[row][col]);
+        if (valid.contains("Box:" + col / 3 + "|" + row / 3 + "|" + board[row][col])) return false;
+        valid.add("Box:" + col / 3 + "|" + row / 3 + "|" + board[row][col]);
       }
     }
     return true;
   }
+
+  //https://leetcode.com/problems/3sum/submissions/
+  public static List<List<Integer>> threeSum(int[] nums) {
+    HashSet<List<Integer>> res = new HashSet<>();
+    Arrays.sort(nums);
+    for (int i = 0; i < nums.length; i++) {
+      int left = i + 1;
+      int right = nums.length - 1;
+      while (left < right) {
+        int sum = nums[i] + nums[left] + nums[right];
+        if (sum == 0) {
+          ArrayList<Integer> ans = new ArrayList<>();
+          ans.add(nums[i]);
+          ans.add(nums[left]);
+          ans.add(nums[right]);
+          res.add(ans);
+          res.add(ans);
+          right--;
+          left++;
+          continue;
+        }
+        if (sum > 0) {
+          right--;
+        }
+        if (sum < 0) {
+          left++;
+        }
+      }
+    }
+    return new ArrayList<List<Integer>>(res);
+  }
+
+  //  https://leetcode.com/problems/longest-repeating-character-replacement/
+  public static int characterReplacement(String s, int k) {
+    HashMap<Character, Integer> counts = new HashMap<>();
+    int res = 0;
+    int left = 0;
+    int right = 0;
+    char[] sArr = s.toCharArray();
+    while (right < sArr.length) {
+      //Update right counts
+      if (counts.containsKey(sArr[right])) {
+        counts.put(sArr[right], counts.get(sArr[right]) + 1);
+      } else {
+        counts.put(sArr[right], 1);
+      }
+      System.out.println("left " + left + " right " + right + " legth " + (right - left + 1));
+      System.out.println(counts);
+      System.out.println("valid: " + ((right - left + 1) - maxChar(counts) <= k));
+      //Is current substring valid?
+      if ((right - left + 1) - maxChar(counts) <= k) {
+        res = Math.max(res, right - left + 1);
+        right++;
+      } else {
+        counts.put(sArr[left], counts.get(sArr[left]) - 1);
+        counts.put(sArr[right], counts.get(sArr[right]) - 1);
+        left++;
+      }
+
+    }
+    return res;
+  }
+
+  private static int maxChar(HashMap<Character, Integer> counts) {
+    int max = 0;
+    for (int count : counts.values()) {
+      max = Math.max(max, count);
+    }
+//    System.out.println(max);
+    return max;
+  }
+
+  //https://leetcode.com/problems/permutation-in-string/
+  public static boolean checkInclusion(String s1, String s2) {
+    int left = 0;
+    int right = s1.length() - 1;
+    char[] s1Arry = s1.toCharArray();
+    Arrays.sort(s1Arry);
+
+    while (right < s2.length()) {
+      if (isPermutations(s1Arry, s2.substring(left, right + 1).toCharArray())) {
+        return true;
+      }
+      left++;
+      right++;
+    }
+    return false;
+  }
+
+  private static boolean isPermutations(char[] sorted, char[] unsorted) {
+    Arrays.sort(unsorted);
+    for (int i = 0; i < sorted.length; i++) {
+      if (sorted[i] != unsorted[i]) return false;
+    }
+    return true;
+  }
+
+  //https://leetcode.com/problems/container-with-most-water/
+  public static int maxArea(int[] heights) {
+    int left = 0;
+    int right = heights.length -1;
+    int maxArea = 0;
+    while (left < right) {
+      maxArea = Math.max(maxArea, calcArea(heights, left, right));
+      if(heights[left] <= heights[right]){
+        left++;
+      }
+      else if(heights[right] <= heights[left]){
+        right--;
+      }
+    }
+    return maxArea;
+  }
+
+  private static int calcArea(int[] heights, int left, int right) {
+    int height = Math.min(heights[left], heights[right]);
+    return height * (right - left);
+  }
+
 }

@@ -240,13 +240,60 @@ public class MediumTest {
 
     assertEquals(Medium.isValidSudoku(new char[][]
             {{'.', '.', '.', '.', '5', '.', '.', '1', '.'},
-            {'.', '4', '.', '3', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '3', '.', '.', '1'},
-            {'8', '.', '.', '.', '.', '.', '.', '2', '.'},
-            {'.', '.', '2', '.', '7', '.', '.', '.', '.'},
-            {'.', '1', '5', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '2', '.', '.', '.'},
-            {'.', '2', '.', '9', '.', '.', '.', '.', '.'},
-            {'.', '.', '4', '.', '.', '.', '.', '.', '.'}}), false);
+                    {'.', '4', '.', '3', '.', '.', '.', '.', '.'},
+                    {'.', '.', '.', '.', '.', '3', '.', '.', '1'},
+                    {'8', '.', '.', '.', '.', '.', '.', '2', '.'},
+                    {'.', '.', '2', '.', '7', '.', '.', '.', '.'},
+                    {'.', '1', '5', '.', '.', '.', '.', '.', '.'},
+                    {'.', '.', '.', '.', '.', '2', '.', '.', '.'},
+                    {'.', '2', '.', '9', '.', '.', '.', '.', '.'},
+                    {'.', '.', '4', '.', '.', '.', '.', '.', '.'}}), false);
+  }
+
+  @Test
+  public void threeSum() {
+    List<List<Integer>> res = Medium.threeSum(new int[]{-1, 0, 1, 2, -1, -4});
+    Integer[][] ans = new Integer[][]{{-1, -1, 2}, {-1, 0, 1}};
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+
+    res = Medium.threeSum(new int[]{0, 0, 0, 0});
+    ans = new Integer[][]{{0, 0, 0}};
+
+    assertEquals(res.size(), ans.length);
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+
+
+    res = Medium.threeSum(new int[]{-2, 0, 1, 1, 2});
+    ans = new Integer[][]{{-2, 1, 1}, {-2, 0, 2}};
+
+    assertEquals(res.size(), ans.length);
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+  }
+
+  @Test
+  public void characterReplacement() {
+    assertEquals(Medium.characterReplacement("ABAB",2),4);
+    assertEquals(Medium.characterReplacement("AABABBA", 1), 4);
+    assertEquals(Medium.characterReplacement("ABABBA", 1), 4);
+    assertEquals(Medium.characterReplacement("AAAAA", 1), 5);
+    assertEquals(Medium.characterReplacement("BAAA", 1), 4);
+  }
+
+  @Test
+  public void checkInclusion() {
+    assertEquals(Medium.checkInclusion("ab","eidbaooo"),true);
+    assertEquals(Medium.checkInclusion("ab","eidboaoo"),false);
+  }
+
+  @Test
+  public void maxArea() {
+    assertEquals(Medium.maxArea(new int[]{1,8,6,2,5,4,8,3,7}),49);
+    assertEquals(Medium.maxArea(new int[]{1,1}),1);
   }
 }
