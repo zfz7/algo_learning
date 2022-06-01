@@ -278,7 +278,7 @@ public class MediumTest {
 
   @Test
   public void characterReplacement() {
-    assertEquals(Medium.characterReplacement("ABAB",2),4);
+    assertEquals(Medium.characterReplacement("ABAB", 2), 4);
     assertEquals(Medium.characterReplacement("AABABBA", 1), 4);
     assertEquals(Medium.characterReplacement("ABABBA", 1), 4);
     assertEquals(Medium.characterReplacement("AAAAA", 1), 5);
@@ -287,13 +287,34 @@ public class MediumTest {
 
   @Test
   public void checkInclusion() {
-    assertEquals(Medium.checkInclusion("ab","eidbaooo"),true);
-    assertEquals(Medium.checkInclusion("ab","eidboaoo"),false);
+    assertEquals(Medium.checkInclusion("ab", "eidbaooo"), true);
+    assertEquals(Medium.checkInclusion("ab", "eidboaoo"), false);
   }
 
   @Test
   public void maxArea() {
-    assertEquals(Medium.maxArea(new int[]{1,8,6,2,5,4,8,3,7}),49);
-    assertEquals(Medium.maxArea(new int[]{1,1}),1);
+    assertEquals(Medium.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}), 49);
+    assertEquals(Medium.maxArea(new int[]{1, 1}), 1);
   }
+
+  @Test
+  public void pacificAtlantic() {
+    List<List<Integer>> res = Medium.pacificAtlantic(new int[][]{{1, 2, 2, 3, 5}, {3, 2, 3, 4, 4}, {2, 4, 5, 3, 1}, {6, 7, 1, 4, 5}, {5, 1, 1, 2, 4}});
+    Integer[][] ans = new Integer[][]{{2, 2}, {1, 3}, {1, 4}, {0, 4}, {4, 0}, {3, 0}, {3, 1}};
+    ;
+    System.out.println(res);
+    assertEquals(res.size(), ans.length);
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+
+    res = Medium.pacificAtlantic(new int[][]{{10, 10, 10}, {10, 1, 10}, {10, 10, 10}});
+    ans = new Integer[][]{{1, 0}, {2, 1}, {0, 0}, {2, 2}, {0, 1}, {1, 2}, {0, 2}, {2, 0}};
+    System.out.println(res);
+    assertEquals(res.size(), ans.length);
+    for (int i = 0; i < ans.length; i++) {
+      assertArrayEquals(res.get(i).toArray(), ans[i]);
+    }
+  }
+
 }

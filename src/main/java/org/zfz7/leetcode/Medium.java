@@ -572,14 +572,13 @@ public class Medium {
   //https://leetcode.com/problems/container-with-most-water/
   public static int maxArea(int[] heights) {
     int left = 0;
-    int right = heights.length -1;
+    int right = heights.length - 1;
     int maxArea = 0;
     while (left < right) {
       maxArea = Math.max(maxArea, calcArea(heights, left, right));
-      if(heights[left] <= heights[right]){
+      if (heights[left] <= heights[right]) {
         left++;
-      }
-      else if(heights[right] <= heights[left]){
+      } else if (heights[right] <= heights[left]) {
         right--;
       }
     }
@@ -591,4 +590,70 @@ public class Medium {
     return height * (right - left);
   }
 
+  //  https://leetcode.com/problems/pacific-atlantic-water-flow/
+  //Doesnt work
+  private static char[][] visited;
+  private static HashSet<List<Integer>> pacificAtlanticAns;
+
+  public static List<List<Integer>> pacificAtlantic(int[][] heights) {
+    //P == can reach pacific, A can reach Atlantic B can see both
+    visited = new char[heights.length][heights[0].length];
+    pacificAtlanticAns = new HashSet<>();
+    for (int row = 0; row < visited.length; row++) {
+      for (int col = 0; col < visited[row].length; col++) {
+        if (visited[row][col] != 'P' || visited[row][col] != 'B' || visited[row][col] != 'A')
+          visited[row][col] = willReachOcean(heights, row, col, -1,'g');
+      }
+    }
+    return new ArrayList<List<Integer>>(pacificAtlanticAns);
+  }
+
+  //P,A,B,N
+  private static char willReachOcean(int[][] heights, int row, int col, int prevHeight, char prevDirection) {
+
+    if ((row == 0 && col == heights[row].length - 1 && (prevHeight >= heights[row][col] || prevHeight == -1)) ||
+            (row == heights.length - 1 && col == 0 && (prevHeight >= heights[row][col] || prevHeight == -1))) {
+      ArrayList<Integer> cord = new ArrayList<>();
+      cord.add(row);
+      cord.add(col);
+      pacificAtlanticAns.add(cord);
+      return 'B';
+    }
+    if (row < 0 || col < 0) {
+      return 'P';
+    }
+    if (row > heights.length - 1 || col > heights[row].length - 1) {
+      return 'A';
+    }
+    if (prevHeight != -1 && heights[row][col] > prevHeight) {
+      return 'N';
+    }
+    char north = prevDirection == 'N'? 'N' :willReachOcean(heights, row - 1, col, heights[row][col],'S');
+    char east = prevDirection == 'E'? 'N' : willReachOcean(heights, row, col - 1, heights[row][col],'W');
+    char south = prevDirection == 'S'? 'N' : willReachOcean(heights, row + 1, col, heights[row][col],'N');
+    char west = prevDirection == 'W'? 'N' : willReachOcean(heights, row, col + 1, heights[row][col],'E');
+    ArrayList<Character> list = new ArrayList<>();
+    list.add(north);
+    list.add(east);
+    list.add(south);
+    list.add(west);
+
+    if (list.contains('B') || (list.contains('P') && list.contains('A'))) {
+      visited[row][col] = 'B';
+      ArrayList<Integer> cord = new ArrayList<>();
+      cord.add(row);
+      cord.add(col);
+      pacificAtlanticAns.add(cord);
+      return 'B';
+    }
+    if (list.contains('P')) {
+      visited[row][col] = 'P';
+      return 'P';
+    }
+    if (list.contains('A')) {
+      visited[row][col] = 'A';
+      return 'A';
+    }
+    return 'N';
+  }
 }
