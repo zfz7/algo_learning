@@ -602,7 +602,7 @@ public class Medium {
     for (int row = 0; row < visited.length; row++) {
       for (int col = 0; col < visited[row].length; col++) {
         if (visited[row][col] != 'P' || visited[row][col] != 'B' || visited[row][col] != 'A')
-          visited[row][col] = willReachOcean(heights, row, col, -1,'g');
+          visited[row][col] = willReachOcean(heights, row, col, -1, 'g');
       }
     }
     return new ArrayList<List<Integer>>(pacificAtlanticAns);
@@ -628,10 +628,10 @@ public class Medium {
     if (prevHeight != -1 && heights[row][col] > prevHeight) {
       return 'N';
     }
-    char north = prevDirection == 'N'? 'N' :willReachOcean(heights, row - 1, col, heights[row][col],'S');
-    char east = prevDirection == 'E'? 'N' : willReachOcean(heights, row, col - 1, heights[row][col],'W');
-    char south = prevDirection == 'S'? 'N' : willReachOcean(heights, row + 1, col, heights[row][col],'N');
-    char west = prevDirection == 'W'? 'N' : willReachOcean(heights, row, col + 1, heights[row][col],'E');
+    char north = prevDirection == 'N' ? 'N' : willReachOcean(heights, row - 1, col, heights[row][col], 'S');
+    char east = prevDirection == 'E' ? 'N' : willReachOcean(heights, row, col - 1, heights[row][col], 'W');
+    char south = prevDirection == 'S' ? 'N' : willReachOcean(heights, row + 1, col, heights[row][col], 'N');
+    char west = prevDirection == 'W' ? 'N' : willReachOcean(heights, row, col + 1, heights[row][col], 'E');
     ArrayList<Character> list = new ArrayList<>();
     list.add(north);
     list.add(east);
@@ -655,5 +655,25 @@ public class Medium {
       return 'A';
     }
     return 'N';
+  }
+
+  //https://leetcode.com/problems/generate-parentheses/
+  private static ArrayList<String> generateParenthesisRes = new ArrayList<>();
+
+  public static List<String> generateParenthesis(int n) {
+    generateParenthesisRes = new ArrayList<>();
+    generateBrackets(1, 0, n, "(");
+    return generateParenthesisRes;
+  }
+
+  private static void generateBrackets(int openCount, int closedCount, int n, String currentRes) {
+    if (openCount == n && closedCount == n) {
+      generateParenthesisRes.add(currentRes);
+      return;
+    }
+    if (openCount < n)
+      generateBrackets(openCount + 1, closedCount, n, currentRes + '(');
+    if (openCount > closedCount)
+      generateBrackets(openCount, closedCount + 1, n, currentRes + ')');
   }
 }

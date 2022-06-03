@@ -317,4 +317,13 @@ public class MediumTest {
     }
   }
 
+  @Test
+  public void generateParenthesis() {
+    List<String> res = Medium.generateParenthesis(3);
+    String[] ans = new String[]{"((()))","(()())","(())()","()(())","()()()"};
+    System.out.println(res);
+    assertEquals(res.size(), ans.length);
+    assertArrayEquals(ans, res.toArray());
+  }
+
 }
