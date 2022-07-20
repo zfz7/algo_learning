@@ -326,4 +326,15 @@ public class MediumTest {
     assertArrayEquals(ans, res.toArray());
   }
 
+  @Test
+  public void leastInterval() {
+    assertEquals(Medium.leastInterval(new char[]{'A','A','A','B','B','B'},2),8);
+    assertEquals(Medium.leastInterval(new char[]{'A','A','A','A','A','A','B','C','D','E','F','G'},2),16);
+  }
+
+  @Test
+  public void permute() {
+    Medium.permute(new int[]{1,2,3});
+  }
+
 }

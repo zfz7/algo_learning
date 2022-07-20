@@ -444,7 +444,7 @@ public class Medium {
         numToCount.put(nums[i], 1);
       }
     }
-    PriorityQueue<Pair> desCounts = new PriorityQueue<>((a, b) -> b.value - a.value);
+    PriorityQueue<Pair<Integer, Integer>> desCounts = new PriorityQueue<>((a, b) -> b.value - a.value);
 
     for (Integer key : numToCount.keySet()) {
       desCounts.add(new Pair(key, numToCount.get(key)));
@@ -676,4 +676,110 @@ public class Medium {
     if (openCount > closedCount)
       generateBrackets(openCount, closedCount + 1, n, currentRes + ')');
   }
+
+  public static int leastInterval(char[] tasks, int n) {
+    PriorityQueue<Pair<Character, Integer>> pq = new PriorityQueue<>((a, b) -> b.value - a.value);
+    HashMap<Character, Integer> initialCounts = new HashMap<>();
+    for (int i = 0; i < tasks.length; i++) {
+      if (initialCounts.containsKey(tasks[i])) {
+        initialCounts.put(tasks[i], initialCounts.get(tasks[i]) + 1);
+      } else {
+        initialCounts.put(tasks[i], 1);
+      }
+    }
+    for (Character key : initialCounts.keySet()) {
+      pq.add(new Pair<Character, Integer>(key, initialCounts.get(key)));
+    }
+    int alltime = 0;
+    while (!pq.isEmpty()) {
+      int worktime = 0;
+      List<Pair<Character, Integer>> tmp = new ArrayList<>();
+      for (int i = 0; i < n + 1; i++) {
+        if (!pq.isEmpty()) {
+          tmp.add(pq.poll());
+          worktime++;
+        }
+      }
+      for (Pair<Character, Integer> cnt : tmp) {
+        if (--cnt.value > 0) {
+          pq.offer(cnt);
+        }
+      }
+      alltime += !pq.isEmpty() ? n + 1 : worktime;
+    }
+
+    return alltime;
+  }
+
+  public static List<List<Integer>> permute(int[] nums) {
+    List<Integer> x = new ArrayList<>();
+    for (int i = 0; i < nums.length; i++) {
+      x.add(nums[i]);
+    }
+    System.out.println(permuteValues("", x));
+    return null;
+  }
+
+  private static String permuteValues(String current, List<Integer> remaining) {
+    if (remaining.size() <= 0) {
+      return current;
+    }
+    String f = "";
+    for (int i = 0; i < remaining.size(); i++) {
+      ArrayList<Integer> tmp = new ArrayList<>(remaining);
+      String next = current + remaining.get(i);
+      tmp.remove(i);
+      System.out.println(next);
+      f = permuteValues(next, tmp) + "|";
+    }
+    return f;
+  }
+
+// Write a function that accepts an array/list of elements
+// as the only input parameter.  The function should return
+// the first non-repeated element that appears in the array.
+//
+// A non-repeated element is one that appears exactly once
+// in the array.
+//
+// Your function should be capable of handling an input array
+// of any size (it might be very large).
+//
+// Example
+// -------
+//
+// arr = [3, 5, 9, 1, 11, 5, 7, 100, 3, 2]
+// f(arr) should return 9 (because 3 and 5 occur more than once in the array)
+//
+// ---
+
+  // Tips:
+// 1. Click `Run` to execute the snippet below!
+// 2. To execute Java, please define "static void main" on a class named Solution.
+// 3. Don't forget imports.
+
+  public static int firstNonDuplicating(int[] nums) {
+    //value, lowest postion
+    HashMap<Integer, Integer> lowestPos = new HashMap<>();
+    //Used to check if valules are in list twice
+    //value, postion
+    HashMap<Integer, Integer> nonDup = new HashMap<>();
+
+    for (int i = 0; i < nums.length; i++) {
+      nonDup.put(nums[i], i);
+      if (lowestPos.containsKey(nums[i])) {
+        nonDup.put(nums[i], -1);
+      } else {
+        lowestPos.put(nums[i], i);
+      }
+    }
+    int lowestIdx = Integer.MAX_VALUE;
+    for (int pos : nonDup.values()) {
+      if (pos != -1) {
+        lowestIdx = Math.min(lowestIdx, pos);
+      }
+    }
+    return nums[lowestIdx];
+  }
+
 }
