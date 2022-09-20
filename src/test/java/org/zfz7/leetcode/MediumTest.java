@@ -337,4 +337,20 @@ public class MediumTest {
     Medium.permute(new int[]{1,2,3});
   }
 
+  @Test
+  public void longestConsecutive() {
+    assertEquals(Medium.longestConsecutive(new int[]{100,4,200,1,3,2}),4);
+    assertEquals(Medium.longestConsecutive(new int[]{0,3,7,2,5,8,4,6,0,1}),9);
+  }
+
+  @Test
+  public void exist() {
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "A"),true);
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "B"),true);
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "AB"),true);
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "ABCCED"),true);
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "SEE"),true);
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}}, "ABCB"),false);
+    assertEquals(Medium.exist(new char[][]{{'A','B','C','E'},{'S','F','E','S'},{'A','D','E','E'}}, "ABCESEEEFS"),true);
+  }
 }

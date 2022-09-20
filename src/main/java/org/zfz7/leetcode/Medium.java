@@ -167,7 +167,7 @@ public class Medium {
   public static int rob(int[] nums) {
     for (int i = 0; i < nums.length; i++) {
       nums[i] = Math.max(nums[i] + (((i - 2) < 0) ? 0 : nums[i - 2]),
-              ((i - 1) < 0) ? 0 : nums[i - 1]);
+          ((i - 1) < 0) ? 0 : nums[i - 1]);
     }
     return Math.max(nums.length - 2 < 0 ? 0 : nums[nums.length - 2], nums[nums.length - 1]);
   }
@@ -324,14 +324,14 @@ public class Medium {
         sum = sum | ((i == 31) ? -(int) Math.pow(2, 31) - 1 : (int) Math.pow(2, i));
       }
       if (aDigit == 1 && bDigit == 0 && carry == 0 ||
-              aDigit == 0 && bDigit == 1 && carry == 0 ||
-              aDigit == 0 && bDigit == 0 && carry == 1) {
+          aDigit == 0 && bDigit == 1 && carry == 0 ||
+          aDigit == 0 && bDigit == 0 && carry == 1) {
         carry = 0;
         sum = sum | ((i == 31) ? -(int) Math.pow(2, 31) - 1 : (int) Math.pow(2, i));
       }
       if (aDigit == 1 && bDigit == 1 && carry == 0 ||
-              aDigit == 0 && bDigit == 1 && carry == 1 ||
-              aDigit == 1 && bDigit == 0 && carry == 1) {
+          aDigit == 0 && bDigit == 1 && carry == 1 ||
+          aDigit == 1 && bDigit == 0 && carry == 1) {
         carry = 1;
       }
       if (aDigit == 0 && bDigit == 0 && carry == 0) {
@@ -612,7 +612,7 @@ public class Medium {
   private static char willReachOcean(int[][] heights, int row, int col, int prevHeight, char prevDirection) {
 
     if ((row == 0 && col == heights[row].length - 1 && (prevHeight >= heights[row][col] || prevHeight == -1)) ||
-            (row == heights.length - 1 && col == 0 && (prevHeight >= heights[row][col] || prevHeight == -1))) {
+        (row == heights.length - 1 && col == 0 && (prevHeight >= heights[row][col] || prevHeight == -1))) {
       ArrayList<Integer> cord = new ArrayList<>();
       cord.add(row);
       cord.add(col);
@@ -780,6 +780,76 @@ public class Medium {
       }
     }
     return nums[lowestIdx];
+  }
+
+  public static int longestConsecutive(int[] nums) {
+    Set<Integer> numSet = new HashSet<>();
+    for (int num : nums) {
+      numSet.add(num);
+    }
+    int longestConsecutive = 0;
+    for (int num : nums) {
+      //if start of seq, count length, update max
+      if (!numSet.contains(num - 1)) {
+        int length = 1;
+        int nextNumber = num + 1;
+        while (numSet.contains(nextNumber)) {
+          length++;
+          nextNumber++;
+        }
+        longestConsecutive = Math.max(longestConsecutive, length);
+      }
+    }
+    return longestConsecutive;
+
+  }
+
+  public boolean hasCycle(ListNode head) {
+    if (head == null)
+      return false;
+    Set<ListNode> set = new HashSet();
+    ListNode cur = head;
+    while (cur.next != null && !set.contains(cur)) {
+      set.add(cur);
+      cur = cur.next;
+    }
+    return set.contains(cur);
+  }
+
+  static HashSet<String> visitedSet;
+
+  public static boolean exist(char[][] board, String word) {
+    for (int x = 0; x < board.length; x++) {
+      for (int y = 0; y < board[x].length; y++) {
+        visitedSet = new HashSet<>();
+        if (traverse(board, x, y, word, 0))
+          return true;
+      }
+    }
+    return false;
+  }
+
+  public static boolean traverse(char[][] board, int x, int y, String word, int idx) {
+    if (x< 0 || x >= board.length || y < 0 || y  >= board[x].length) {
+      return false;
+    }
+    if (visitedSet.contains("x" + x + "y" + y)) {
+      return false;
+    }
+    if (idx == word.length() - 1 && board[x][y] == word.charAt(idx)) {
+      return true;
+    }
+    if (word.charAt(idx) != board[x][y]) {
+      return false;
+    }
+//    System.out.println("x" + x + "y" + y);
+    visitedSet.add("x" + x + "y" + y);
+    boolean ret =  traverse(board, x +1, y, word, idx + 1) ||
+        traverse(board, x -1, y, word, idx + 1) ||
+        traverse(board, x, y +1, word, idx + 1) ||
+        traverse(board, x, y -1, word, idx + 1);
+    visitedSet.remove("x" + x + "y" + y);
+    return ret;
   }
 
 }
